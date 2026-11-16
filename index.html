@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Conversor · Alma Turquesa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a5b64">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%20512%20512%27%3E%3Crect%20width=%27512%27%20height=%27512%27%20fill=%27%230e9aa7%27/%3E%3Ccircle%20cx=%27430%27%20cy=%2770%27%20r=%27150%27%20fill=%27%23ff8a5c%27/%3E%3Ccircle%20cx=%2760%27%20cy=%27450%27%20r=%27150%27%20fill=%27%23ffd23f%27/%3E%3Ccircle%20cx=%27440%27%20cy=%27460%27%20r=%27110%27%20fill=%27%23b57bff%27/%3E%3Ctext%20x=%27256%27%20y=%27330%27%20font-size=%27230%27%20font-weight=%27700%27%20text-anchor=%27middle%27%20fill=%27%23fff6e5%27%20font-family=%27Georgia%2Cserif%27%3E%24%E2%82%AC%3C/text%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+:root{--ink:#10343a;--cream:#fff6e5;--tq:#0e9aa7}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#0b6e78}
+body{margin:0;color:var(--ink);font-family:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;position:relative;overflow-x:hidden;
+background:linear-gradient(165deg,#fff1d6 0%,#c9f0ea 45%,#7fd6d8 100%);
+padding:max(18px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+.blob{position:fixed;border-radius:50%;filter:blur(38px);opacity:.75;z-index:0;pointer-events:none;animation:fl 14s ease-in-out infinite alternate}
+.b1{width:260px;height:260px;background:#ff8a5c;top:-80px;right:-70px}
+.b2{width:220px;height:220px;background:#ffd23f;bottom:90px;left:-90px;animation-delay:-5s}
+.b3{width:240px;height:240px;background:#b57bff;bottom:-90px;right:-60px;animation-delay:-9s}
+@keyframes fl{to{transform:translate(26px,-34px) scale(1.12)}}
+body:after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.18;mix-blend-mode:multiply;
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+main{max-width:460px;margin:0 auto;position:relative;z-index:2}
+header{display:flex;align-items:flex-end;justify-content:space-between;margin:4px 4px 16px}
+h1{font-family:"Fraunces",Georgia,"Times New Roman",serif;font-style:italic;font-weight:800;font-size:44px;line-height:.9;margin:0;color:#0a5b64;transform:rotate(-2.5deg);letter-spacing:-.02em}
+h1 small{display:block;font:600 11px/1 "Space Grotesk",system-ui,sans-serif;font-style:normal;letter-spacing:.32em;text-transform:uppercase;color:#e2573a;margin-top:8px;transform:rotate(2.5deg);transform-origin:left}
+.sun{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3a8,#ffb703 60%,#ff7a2f);box-shadow:0 0 0 6px #ffd23f55,0 0 0 14px #ffd23f22}
+.row{position:relative;border-radius:26px;padding:14px 18px;margin-bottom:12px;display:flex;align-items:center;gap:12px;color:#fff;overflow:hidden;
+box-shadow:0 10px 0 -4px rgba(16,52,58,.16),0 14px 26px -10px rgba(16,52,58,.45);transition:transform .15s}
+.row:nth-child(odd){transform:rotate(-.6deg)}.row:nth-child(even){transform:rotate(.6deg)}
+.row:focus-within{transform:scale(1.03) rotate(0)}
+.row:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-40px;top:-60px;background:rgba(255,255,255,.18)}
+.row:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;left:30px;bottom:-55px;background:rgba(0,0,0,.09)}
+.row[data-c=ARS]{background:linear-gradient(135deg,#1fa8e8,#0a64c9)}
+.row[data-c=BRL]{background:linear-gradient(135deg,#2fc77a,#0b8f5a)}
+.row[data-c=EUR]{background:linear-gradient(135deg,#9a6bff,#5a2fc9)}
+.row[data-c=USD]{background:linear-gradient(135deg,#ff9a3c,#e8453c)}
+.cur{min-width:70px;position:relative;z-index:1}
+.cur b{display:block;font-family:"Fraunces",Georgia,serif;font-size:30px;font-weight:800;letter-spacing:.01em;line-height:1}
+.cur span{font-size:11px;opacity:.85;letter-spacing:.06em;text-transform:uppercase}
+input{position:relative;z-index:1;flex:1;min-width:0;border:0;background:transparent;color:#fff;font-size:32px;text-align:right;font-weight:600;outline:none;font-family:inherit}
+input::placeholder{color:rgba(255,255,255,.45)}
+.ars-opt{display:flex;gap:8px;margin:16px 0 14px;flex-wrap:wrap}
+.ars-opt button{flex:1;border:2.5px solid var(--ink);background:#fff6e5;color:var(--ink);padding:10px 4px;border-radius:999px;font-size:13px;font-weight:700;font-family:inherit;box-shadow:0 4px 0 var(--ink);transition:.1s}
+.ars-opt button.on{background:#ffd23f;transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.lab{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#0a5b64;font-weight:700;margin:0 4px 6px}
+.rates{background:rgba(255,246,229,.82);border:2.5px solid var(--ink);border-radius:22px;padding:10px 16px;font-size:14px;backdrop-filter:blur(6px)}
+.rates div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1.5px dashed rgba(16,52,58,.25)}
+.rates div:last-child{border:0}
+.rates div b{font-weight:700}
+.status{font-size:12px;color:#0a5b64;margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600}
+.status.err{color:#b3261e}
+#upd{border:2.5px solid var(--ink);background:#ff8a5c;color:var(--ink);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;font-family:inherit;box-shadow:0 3px 0 var(--ink)}
+#upd:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+#clr{border:0;background:none;color:#0a5b64;font-size:13px;text-decoration:underline;padding:4px 0;font-family:inherit;font-weight:600}
+</style>
+</head>
+<body>
+<main>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<header><h1>Conversor<small>Alma Turquesa</small></h1><div class="sun"></div></header>
+<div id="rows"></div>
+<div class="ars-opt" id="opt"></div>
+<div class="lab">Cotizaciones</div><div class="rates" id="rates"></div>
+<div class="status" id="st"><span id="stt">Cargando cotizaciones…</span><button id="upd">Actualizar</button></div>
+<div style="text-align:right;margin-top:6px"><button id="clr">Borrar cifras</button></div>
+</main>
+<script>
+const CUR=[{c:'ARS',n:'Peso argentino'},{c:'BRL',n:'Real'},{c:'EUR',n:'Euro'},{c:'USD',n:'Dólar'}];
+const TIPOS=[['oficial','Oficial'],['blue','Blue'],['bolsa','MEP'],['tarjeta','Tarjeta']];
+let S={perUSD:{USD:1,EUR:null,BRL:null,ARS:null},ars:{},tipo:'blue',last:'USD',val:null,fecha:{}};
+try{const x=JSON.parse(localStorage.getItem('conv')||'null');if(x){S.perUSD=x.perUSD||S.perUSD;S.ars=x.ars||{};S.fecha=x.fecha||{};if(x.tipo)S.tipo=x.tipo;}}catch(e){}
+const $=id=>document.getElementById(id);
+const fmt=(v,c)=>v==null||!isFinite(v)?'':new Intl.NumberFormat('es-AR',{maximumFractionDigits:v>=1000?0:2,minimumFractionDigits:0}).format(v);
+function parse(s){s=String(s).replace(/\s/g,'');if(!s)return null;
+const lc=s.lastIndexOf(','),ld=s.lastIndexOf('.');
+if(lc>-1&&ld>-1){s=lc>ld?s.replace(/\./g,'').replace(',','.'):s.replace(/,/g,'');}
+else if(lc>-1){s=s.replace(',','.');}
+else if(ld>-1){const parts=s.split('.');if(parts.length>2||(parts.length==2&&parts[1].length==3&&parts[0]!=='0'&&parts[0]!==''))s=s.replace(/\./g,'');}
+const n=parseFloat(s);return isFinite(n)?n:null;}
+const rows=$('rows');
+CUR.forEach(({c,n})=>{const d=document.createElement('label');d.className='row';d.dataset.c=c;
+d.innerHTML=`<div class="cur"><b>${c}</b><span>${n}</span></div><input id="i${c}" inputmode="decimal" autocomplete="off" placeholder="0">`;rows.appendChild(d);
+const inp=d.querySelector('input');
+inp.addEventListener('input',()=>{S.last=c;S.val=parse(inp.value);render(c)});
+inp.addEventListener('blur',()=>{if(S.val!=null&&S.last===c)inp.value=fmt(S.val,c)});
+inp.addEventListener('focus',()=>{if(inp.value)inp.select()});});
+const opt=$('opt');
+TIPOS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;b.dataset.k=k;
+b.onclick=()=>{S.tipo=k;applyARS();save();render(S.last);paintOpt()};opt.appendChild(b)});
+function paintOpt(){[...opt.children].forEach(b=>b.classList.toggle('on',b.dataset.k===S.tipo))}
+function applyARS(){const v=S.ars[S.tipo];if(v)S.perUSD.ARS=v}
+function render(skip){
+const r=S.perUSD;
+if(S.val!=null&&r[S.last]){const usd=S.val/r[S.last];
+CUR.forEach(({c})=>{if(c!==skip&&r[c])$('i'+c).value=fmt(usd*r[c],c)});}
+else if(S.val==null){CUR.forEach(({c})=>{if(c!==skip)$('i'+c).value=''})}
+const t=[];
+if(r.ARS)t.push(['1 USD',fmt(r.ARS)+' ARS ('+TIPOS.find(x=>x[0]===S.tipo)[1]+')']);
+if(r.ARS&&r.EUR)t.push(['1 EUR',fmt(r.ARS/r.EUR)+' ARS']);
+if(r.ARS&&r.BRL)t.push(['1 BRL',fmt(r.ARS/r.BRL)+' ARS']);
+if(r.EUR)t.push(['1 EUR',r.EUR?(1/r.EUR).toFixed(3).replace('.',',')+' USD':'']);
+if(r.BRL)t.push(['1 USD',r.BRL.toFixed(2).replace('.',',')+' BRL']);
+if(r.EUR&&r.BRL)t.push(['1 EUR',(r.BRL/r.EUR).toFixed(2).replace('.',',')+' BRL']);
+$('rates').innerHTML=t.map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('');
+}
+function save(){try{localStorage.setItem('conv',JSON.stringify({perUSD:S.perUSD,ars:S.ars,fecha:S.fecha,tipo:S.tipo}))}catch(e){}}
+function stamp(ok,msg){$('st').classList.toggle('err',!ok);$('stt').textContent=msg}
+function hora(iso){try{return new Date(iso).toLocaleString('es-AR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}catch(e){return ''}}
+async function load(){
+$('upd').disabled=true;let okA=false,okB=false;
+try{const r=await fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store'});const j=await r.json();
+if(j.rates&&j.rates.EUR&&j.rates.BRL){S.perUSD.EUR=j.rates.EUR;S.perUSD.BRL=j.rates.BRL;if(!S.ars.oficial)S.perUSD.ARS=j.rates.ARS;S.fecha.mundo=j.time_last_update_utc;okA=true}}catch(e){}
+try{const r=await fetch('https://dolarapi.com/v1/dolares',{cache:'no-store'});const j=await r.json();
+j.forEach(x=>{if(x.venta)S.ars[x.casa]=x.venta;if(x.fechaActualizacion)S.fecha['ars_'+x.casa]=x.fechaActualizacion});okB=true}catch(e){}
+applyARS();save();paintOpt();render(S.last);$('upd').disabled=false;
+const f=S.fecha['ars_'+S.tipo];
+if(okA&&okB)stamp(true,'Cotizaciones en vivo'+(f?' · ARS '+hora(f):''));
+else if(S.perUSD.EUR&&S.perUSD.ARS)stamp(false,'Sin conexión: uso las últimas guardadas'+(f?' ('+hora(f)+')':''));
+else stamp(false,'No pude traer cotizaciones. Revisá la conexión y tocá Actualizar.');
+}
+$('upd').onclick=load;
+$('clr').onclick=()=>{S.val=null;CUR.forEach(({c})=>$('i'+c).value='');$('iUSD').focus()};
+paintOpt();applyARS();render(S.last);load();
+setInterval(load,10*60*1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load()});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
